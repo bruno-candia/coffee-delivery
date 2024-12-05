@@ -1,3 +1,12 @@
+import { CoffeeList } from './components/CoffeeList';
+import { HeroSection } from './components/HeroSection';
+import { HomeContainer } from './styles';
+
 export function Home() {
-  return <h1>Home</h1>;
+  return (
+    <HomeContainer>
+      <HeroSection />
+      <CoffeeList />
+    </HomeContainer>
+  );
 }
