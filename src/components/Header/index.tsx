@@ -3,10 +3,12 @@ import coffeeDeliveryLogo from '../../assets/logo.svg';
 import { MapPin, ShoppingCart } from '@phosphor-icons/react';
 import { useCurrentCity } from '../../hooks/useCurrentCity';
 import { NavLink } from 'react-router-dom';
+import CartContext from '../../context/CartContext';
+import { useContext } from 'react';
 
 export function Header() {
   const { currentCity, loading, error } = useCurrentCity();
-  const value = 0;
+  const { cart } = useContext(CartContext);
 
   return (
     <HeaderContainer>
@@ -23,9 +25,9 @@ export function Header() {
           </Location>
 
           <Link to="/checkout">
-            <span>{value}</span>
+            <span>{cart.totalQuantity}</span>
             <ShoppingCart size={22} weight="fill" />
-          </Link> 
+          </Link>
         </div>
       </HeaderContent>
     </HeaderContainer>

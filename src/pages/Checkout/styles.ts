@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CheckoutWrapper = styled.form`
+export const CheckoutForm = styled.form`
   display: grid;
   grid-template-columns: 1.42862fr 1fr;
   gap: 2rem;
@@ -25,7 +25,7 @@ export const CheckoutContainer = styled.div`
   }
 `;
 
-export const FormWrapper = styled.div`
+export const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -105,7 +105,7 @@ export const CheckoutItem = styled.li`
   & > div {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 0.75rem;
 
     & img {
       margin: 0;
@@ -120,6 +120,7 @@ export const CheckoutItem = styled.li`
   & span {
     ${({ theme }) => theme.fonts.textMBold};
     color: ${({ theme }) => theme.colors['base-text']};
+    text-align: right;
   }
 `;
 
@@ -184,6 +185,15 @@ export const CheckoutFooter = styled.div`
     border-radius: 6px;
     cursor: pointer;
     transition: background 0.2s;
+
+    &:disabled {
+      background: ${({ theme }) => theme.colors['base-button']};
+      cursor: not-allowed;
+
+      &:hover {
+        background: ${({ theme }) => theme.colors['base-button']};
+      }
+    }
 
     &:hover {
       background: ${({ theme }) => theme.colors['yellow-dark']};

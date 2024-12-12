@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-export const Form = styled.div`
+export const AddressContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -11,11 +11,10 @@ export const InputWrapper = styled.span`
   flex: 1;
   width: 100%;
 
-  
   &::before {
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 52%; 
+    top: 52%;
     right: -8px;
     content: 'Optional';
     font-family: 'Roboto', sans-serif;
@@ -28,7 +27,7 @@ export const InputWrapper = styled.span`
 
   &:has(input:focus::before) {
     content: '';
-    opacity: 0; 
+    opacity: 0;
   }
 
   &:has(input:not(:placeholder-shown))::before,
@@ -58,37 +57,41 @@ export const Input = styled.input`
     border: 1px solid ${({ theme }) => theme.colors['yellow-dark']};
   }
 
-  &[name="cep"] {
+  &[name='zipCode'] {
     width: 40%;
-    max-width: 200px; 
+    max-width: 200px;
   }
 
-  &[placeholder="Rua"] {
+  &[placeholder='Rua'] {
     width: 100%;
   }
 
-  &[placeholder="Número"] {
+  &[placeholder='Número'] {
     flex: 0 0 200px;
     max-width: 200px;
   }
 
-  &[placeholder="Complemento"] {
+  &[placeholder='Complemento'] {
     width: 100%;
   }
 
-  &[placeholder="Bairro"] {
+  &[placeholder='Bairro'] {
     flex: 0 0 200px;
     max-width: 200px;
   }
 
-  &[placeholder="Cidade"] {
+  &[placeholder='Cidade'] {
     flex: 1;
   }
 
-  &[placeholder="UF"] {
+  &[placeholder='UF'] {
     flex: 0 0 60px;
     max-width: 60px;
     text-transform: uppercase;
+  }
+
+  &[aria-invalid='true'] {
+    border: 1px solid ${({ theme }) => theme.colors['red']};
   }
 `;
 

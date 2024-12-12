@@ -3,6 +3,7 @@ import { pages } from './Router';
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from './styles/theme/default';
 import { GlobalStyle } from './styles/global';
+import { CartContextProvider } from './context/CartProvider';
 
 const router = createBrowserRouter(pages, {
   future: {
@@ -12,10 +13,12 @@ const router = createBrowserRouter(pages, {
 
 function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <RouterProvider router={router} />
-      <GlobalStyle />
-    </ThemeProvider>
+    <CartContextProvider>
+      <ThemeProvider theme={defaultTheme}>
+        <RouterProvider router={router} />
+        <GlobalStyle />
+      </ThemeProvider>
+    </CartContextProvider>
   );
 }
 

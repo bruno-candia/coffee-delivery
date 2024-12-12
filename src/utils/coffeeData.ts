@@ -1,14 +1,6 @@
-interface Coffee {
-  id: number;
-  name: string;
-  tags: string[];
-  description: string;
-  price: number;
-  stock: number;
-  image: string;
-}
+import { Coffee } from '../types/coffee';
 
-export const coffeeData: Coffee[] = [
+export const data: Coffee[] = [
   {
     id: 1,
     name: 'Expresso Tradicional',
@@ -33,7 +25,7 @@ export const coffeeData: Coffee[] = [
     tags: ['tradicional'],
     description: 'Café expresso tradicional com espuma cremosa',
     price: 14.9,
-    stock: 5,
+    stock: 343,
     image: '/cream-express.png',
   },
   {

@@ -1,7 +1,42 @@
 import { CurrencyDollar, MapPin, Timer } from '@phosphor-icons/react';
-import { DeliveryAddress, DeliveryContainer, DeliveryHeader, DeliveryInfos, DeliveryPaymentMethod, DeliveryTime, DeliveryWrapper } from './styles';
+import {
+  DeliveryAddress,
+  DeliveryContainer,
+  DeliveryHeader,
+  DeliveryInfos,
+  DeliveryPaymentMethod,
+  DeliveryTime,
+  DeliveryWrapper,
+} from './styles';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CartContext from '../../context/CartContext';
+import { PaymentMethodEnum } from '../../types/coffee';
 
 export function Delivery() {
+  const { cart, clearCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate('/');
+      clearCart();
+    }, 5000);
+  }, [clearCart, navigate]);
+
+  function translatePaymentMethod() {
+    switch (cart.paymentMethod) {
+      case PaymentMethodEnum.CREDIT:
+        return 'Cartão de crédito';
+      case PaymentMethodEnum.DEBIT:
+        return 'Cartão de débito';
+      case PaymentMethodEnum.MONEY:
+        return 'Dinheiro';
+      default:
+        return 'Não informado';
+    }
+  }
+
   return (
     <DeliveryWrapper>
       <DeliveryContainer>
@@ -16,8 +51,12 @@ export function Delivery() {
               <MapPin size={16} weight="fill" />
             </span>
             <p>
-              Entrega em <strong>Rua João Daniel Martinelli, 102</strong> Farrapos - Porto
-              Alegre, RS
+              Entrega em{' '}
+              <strong>
+                {cart.address.street}, {cart.address.number}
+              </strong>{' '}
+              {cart.address.district} - {cart.address.city},{' '}
+              {cart.address.acronymState}
             </p>
           </DeliveryAddress>
           <DeliveryTime>
@@ -35,7 +74,7 @@ export function Delivery() {
             </span>
             <div>
               <h4>Pagamento na entrega</h4>
-              <p>Cartão de Crédito</p>
+              <p>{translatePaymentMethod()}</p>
             </div>
           </DeliveryPaymentMethod>
         </DeliveryInfos>

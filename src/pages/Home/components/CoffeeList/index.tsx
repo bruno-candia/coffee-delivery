@@ -12,11 +12,18 @@ import { Tag } from '../../../../components/Tag';
 import { Price } from '../../../../components/Price';
 import { Stock } from '../../../../components/Stock';
 import { Stepper } from '../../../../components/Stepper';
-import { coffeeData } from '../../../../utils/coffeeData';
+import { useProductsList } from '../../../../hooks/useProductsList';
 
 export function CoffeeList() {
+  const {
+    productsList,
+    getCurrentStock,
+    handleSubmit,
+    productQuantities,
+    updateQuantity,
+  } = useProductsList();
 
-  if (coffeeData.length === 0) {
+  if (productsList && productsList.length === 0) {
     return <h3>Sorry, no coffee found</h3>;
   }
 
@@ -24,7 +31,7 @@ export function CoffeeList() {
     <CoffeeListContainer>
       <h3>Nossos cafés</h3>
       <ul>
-        {coffeeData.map((coffee) => (
+        {productsList.map((coffee) => (
           <CoffeeItem key={coffee.id}>
             <CoffeeItemHeader>
               <CoffeeImage
@@ -42,13 +49,25 @@ export function CoffeeList() {
               <p>{coffee.description}</p>
             </CoffeeItemBody>
             <CoffeeItemFooter>
-              <Price price={coffee.price} stock={coffee.stock} />
-              <CoffeeForm action="" onSubmit={(e) => e.preventDefault()}>
-                <Stepper maxValue={coffee.stock} />
-                <CartButton type="submit" />
+              <Price
+                price={
+                  coffee.price * productQuantities[coffee.id] || coffee.price
+                }
+                stock={coffee.stock}
+              />
+              <CoffeeForm onSubmit={(event) => handleSubmit(event, coffee)}>
+                <Stepper
+                  maxValue={getCurrentStock(coffee.id)}
+                  value={productQuantities[coffee.id] || 0}
+                  onUpdate={(value) => updateQuantity(coffee.id, value)}
+                />
+                <CartButton
+                  type="submit"
+                  disabled={getCurrentStock(coffee.id) === 0}
+                />
               </CoffeeForm>
             </CoffeeItemFooter>
-            <Stock stock={coffee.stock} />
+            <Stock stock={getCurrentStock(coffee.id)} />
           </CoffeeItem>
         ))}
       </ul>
